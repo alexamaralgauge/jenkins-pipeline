@@ -1,5 +1,3 @@
-def qg = 'NOK'
-
 pipeline {
     agent any
     stages {
@@ -35,14 +33,11 @@ pipeline {
             }
         }
 
-        stage("Quality Gate"){
+        stage("Quality Gate") {
             steps {
-                timeout(time: 1, unit: 'HOURS') {
-                    qg = waitForQualityGate()
-                    if (qg.status != 'OK') {
-                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                    }
-                }
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+              }
             }
         }
 

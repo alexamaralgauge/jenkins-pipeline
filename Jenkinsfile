@@ -27,16 +27,15 @@ pipeline {
 
 
         stage('Sonar') {
-            steps {
+              tools {
+                sonarQube 'SonarQube Scanner 2.8'
+              }
+              steps {
                 echo 'Sonar Scanner'
-               	def scannerHome = tool 'sonar-scanner'
-               	echo scannerHome
-               	/*
-			    withSonarQubeEnv('SonarQube Server') {
-			    	bat 'C:/Dock/ci/sonar/sonar-scanner-3.0.3.778-windows/bin/sonar-scanner'
-			    }
-			    */
-            }
+                withSonarQubeEnv('SonarQube Scanner') {
+                  sh 'sonar-scanner'
+                }
+              }
         }
 
 

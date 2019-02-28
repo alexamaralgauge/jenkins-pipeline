@@ -25,7 +25,7 @@ pipeline {
             }
         }
 
-        /*
+
         stage('Sonar') {
             steps {
                 echo 'Sonar Scanner'
@@ -38,7 +38,7 @@ pipeline {
 			    */
             }
         }
-        */
+
 
         stage('Package') {
             steps {

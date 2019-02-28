@@ -29,7 +29,7 @@ pipeline {
                 echo 'Sonar Scanner'
                	def scannerHome = tool 'sonar-scanner'
 			    withSonarQubeEnv('SonarQube Server') {
-			    	bat '${scannerHome}/bin/sonar-scanner'
+			    	sh '${scannerHome}/bin/sonar-scanner'
 			    }
             }
         }

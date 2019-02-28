@@ -26,17 +26,21 @@ pipeline {
         }
 
 
-        stage('Sonar') {
-              tools {
-                sonarQube 'SonarQube Scanner 2.8'
+         stage("build & SonarQube analysis") {
+            agent any
+            steps {
+              withSonarQubeEnv('pct-sonar') {
+                sh 'mvn clean package sonar:sonar'
               }
-              steps {
-                echo 'Sonar Scanner'
-                withSonarQubeEnv('SonarQube Scanner') {
-                  sh 'sonar-scanner'
-                }
+            }
+          }
+          stage("Quality Gate") {
+            steps {
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
               }
-        }
+            }
+          }
 
 
         stage('Package') {
